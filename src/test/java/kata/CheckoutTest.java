@@ -35,7 +35,7 @@ public class CheckoutTest {
     }
 
     @Test
-    void checkout_special_price_item_combo() {
+    void checkout_special_price_item_A_combo() {
         final Long specialPrice = 130L;
         final Item item1 = new Item("A", 50L);
 
@@ -47,7 +47,7 @@ public class CheckoutTest {
     }
 
     @Test
-    void checkout_special_price_item_combo_twice() {
+    void checkout_special_price_item_A_combo_twice() {
         final Long specialPrice = 130L;
         final Item item = new Item("A", 50L);
 
@@ -56,5 +56,17 @@ public class CheckoutTest {
         }
 
         Assertions.assertThat(checkoutService.checkout()).isEqualTo(specialPrice * 2);
+    }
+
+    @Test
+    void checkout_special_price_item_B_combo() {
+        final Long specialPrice = 45L;
+        final Item item = new Item("B", 30L);
+
+        for (int i = 0; i < 2; i++) {
+            checkoutService.scanItem(item);
+        }
+
+        Assertions.assertThat(checkoutService.checkout()).isEqualTo(specialPrice);
     }
 }
