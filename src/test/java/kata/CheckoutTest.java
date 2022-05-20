@@ -45,4 +45,16 @@ public class CheckoutTest {
 
         Assertions.assertThat(checkoutService.checkout()).isEqualTo(specialPrice);
     }
+
+    @Test
+    void checkout_special_price_item_combo_twice() {
+        final Long specialPrice = 130L;
+        final Item item = new Item("A", 50L);
+
+        for (int i = 0; i < 6; i++) {
+            checkoutService.scanItem(item);
+        }
+
+        Assertions.assertThat(checkoutService.checkout()).isEqualTo(specialPrice * 2);
+    }
 }

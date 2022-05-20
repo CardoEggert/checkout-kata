@@ -13,9 +13,8 @@ public class CheckoutService {
 
     public long checkout() {
         long sumOfItems = cart.stream().map(Item::unitPrice).reduce(0L, (subPrice, price) -> subPrice + price);
-        if (cart.stream().filter(item -> item.item().equals("A")).count() >= 3) {
-            sumOfItems -= 20L;
-        }
+        long countOfA = cart.stream().filter(item -> item.item().equals("A")).count();
+        sumOfItems -= ((countOfA / 3) * 20);
         return sumOfItems;
     }
 }
