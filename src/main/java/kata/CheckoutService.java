@@ -5,13 +5,17 @@ import java.util.List;
 
 public class CheckoutService {
 
-    private List<Long> prices = new ArrayList<>();
+    private List<Item> cart = new ArrayList<>();
 
-    public void scanItem(String item, Long unitPrice) {
-        prices.add(unitPrice);
+    public void scanItem(Item item) {
+        cart.add(item);
     }
 
     public long checkout() {
-        return prices.stream().reduce(0L, (subPrice, price) -> subPrice + price);
+        long sumOfItems = cart.stream().map(Item::unitPrice).reduce(0L, (subPrice, price) -> subPrice + price);
+        if (cart.stream().filter(item -> item.item().equals("A")).count() >= 3) {
+            sumOfItems -= 20L;
+        }
+        return sumOfItems;
     }
 }
