@@ -22,10 +22,12 @@ public final class Discount {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
-        if (obj == null || obj.getClass() != this.getClass())
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
             return false;
+        }
         var that = (Discount) obj;
         return Objects.equals(this.discountItem, that.discountItem) &&
                 this.countOfItemsForDiscount == that.countOfItemsForDiscount &&

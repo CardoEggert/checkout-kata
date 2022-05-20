@@ -18,7 +18,7 @@ public class CheckoutTest {
     void checkout_one_item() {
         final Item item = new Item("A", 50L);
 
-        checkoutService.scanItem(item);
+        scanItemMultipleTimes(item, 1);
 
         Assertions.assertThat(checkoutService.checkout()).isEqualTo(item.unitPrice());
     }
@@ -28,8 +28,8 @@ public class CheckoutTest {
         final Item item = new Item("A", 50L);
         final Item item2 = new Item("B", 30L);
 
-        checkoutService.scanItem(item);
-        checkoutService.scanItem(item2);
+        scanItemMultipleTimes(item, 1);
+        scanItemMultipleTimes(item2, 1);
 
         Assertions.assertThat(checkoutService.checkout()).isEqualTo(item.unitPrice() + item2.unitPrice());
     }
@@ -39,9 +39,7 @@ public class CheckoutTest {
         final Long specialPrice = 130L;
         final Item item1 = new Item("A", 50L);
 
-        checkoutService.scanItem(item1);
-        checkoutService.scanItem(item1);
-        checkoutService.scanItem(item1);
+        scanItemMultipleTimes(item1, 3);
 
         Assertions.assertThat(checkoutService.checkout()).isEqualTo(specialPrice);
     }
@@ -51,9 +49,7 @@ public class CheckoutTest {
         final Long specialPrice = 130L;
         final Item item = new Item("A", 50L);
 
-        for (int i = 0; i < 6; i++) {
-            checkoutService.scanItem(item);
-        }
+        scanItemMultipleTimes(item, 6);
 
         Assertions.assertThat(checkoutService.checkout()).isEqualTo(specialPrice * 2);
     }
@@ -63,10 +59,14 @@ public class CheckoutTest {
         final Long specialPrice = 45L;
         final Item item = new Item("B", 30L);
 
-        for (int i = 0; i < 2; i++) {
-            checkoutService.scanItem(item);
-        }
+        scanItemMultipleTimes(item, 2);
 
         Assertions.assertThat(checkoutService.checkout()).isEqualTo(specialPrice);
+    }
+
+    private void scanItemMultipleTimes(Item item, int howManyTimes) {
+        for (int i = 0; i < howManyTimes; i++) {
+            checkoutService.scanItem(item);
+        }
     }
 }
