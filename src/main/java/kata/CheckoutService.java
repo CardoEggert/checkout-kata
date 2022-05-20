@@ -17,13 +17,9 @@ public class CheckoutService {
     public long checkout() {
         long sumOfItems = cart.stream().map(Item::unitPrice).reduce(0L, Long::sum);
         for (Discount discount : discounts) {
-            sumOfItems -= getDiscount(discount);
+            sumOfItems -= discount.getDiscount(cart);
         }
         return sumOfItems;
     }
 
-    private long getDiscount(Discount discount) {
-        long countOfDiscountItems = cart.stream().filter(item -> item.item().equals(discount.discountItem())).count();
-        return (countOfDiscountItems / discount.countOfItemsForDiscount()) * discount.discountPrice();
-    }
 }

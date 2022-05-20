@@ -1,5 +1,6 @@
 package kata;
 
+import java.util.List;
 import java.util.Objects;
 
 public final class Discount {
@@ -14,16 +15,9 @@ public final class Discount {
         this.discountPrice = discountPrice;
     }
 
-    public String discountItem() {
-        return discountItem;
-    }
-
-    public int countOfItemsForDiscount() {
-        return countOfItemsForDiscount;
-    }
-
-    public int discountPrice() {
-        return discountPrice;
+    public long getDiscount(List<Item> cart) {
+        long countOfDiscountItems = cart.stream().filter(item -> item.item().equals(discountItem)).count();
+        return (countOfDiscountItems / countOfItemsForDiscount) * discountPrice;
     }
 
     @Override
