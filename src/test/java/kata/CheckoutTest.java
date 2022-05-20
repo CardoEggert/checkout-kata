@@ -65,12 +65,11 @@ public class CheckoutTest {
 
     @Test
     void checkout_special_price_item_B_combo() {
-        final Long specialPrice = 45L;
         final Item item = new Item("B", 30L);
 
         scanItemMultipleTimes(item.item(), 2);
 
-        Assertions.assertThat(checkoutService.checkout()).isEqualTo(specialPrice);
+        Assertions.assertThat(checkoutService.checkout()).isEqualTo(item.unitPrice() + item.unitPrice() - discounts.get(1).getDiscountPrice());
     }
 
     private void scanItemMultipleTimes(String itemName, int howManyTimes) {
