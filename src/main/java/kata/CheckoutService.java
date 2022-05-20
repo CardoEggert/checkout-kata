@@ -1,14 +1,17 @@
 package kata;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CheckoutService {
 
-    private Long price;
+    private List<Long> prices = new ArrayList<>();
 
     public void scanItem(String item, Long unitPrice) {
-        price = unitPrice;
+        prices.add(unitPrice);
     }
 
     public long checkout() {
-        return price;
+        return prices.stream().reduce(0L, (subPrice, price) -> subPrice + price);
     }
 }

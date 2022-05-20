@@ -23,4 +23,18 @@ public class CheckoutTest {
 
         Assertions.assertThat(checkoutService.checkout()).isEqualTo(unitPrice);
     }
+
+    @Test
+    void checkout_two_items() {
+        final String item1 = "A";
+        final Long unitPrice1 = 50L;
+        final String item2 = "B";
+        final Long unitPrice2 = 30L;
+
+
+        checkoutService.scanItem(item1, unitPrice1);
+        checkoutService.scanItem(item2, unitPrice2);
+
+        Assertions.assertThat(checkoutService.checkout()).isEqualTo(unitPrice1 + unitPrice2);
+    }
 }
