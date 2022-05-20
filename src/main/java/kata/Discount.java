@@ -20,6 +20,10 @@ public final class Discount {
         return (countOfDiscountItems / countOfItemsForDiscount) * discountPrice;
     }
 
+    public int getDiscountPrice() {
+        return discountPrice;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

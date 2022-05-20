@@ -2,16 +2,22 @@ package kata;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CheckoutService {
 
-    private List<Item> cart = new ArrayList<>();
-    private List<Discount> discounts = List.of(
-            new Discount("A", 3, 20),
-            new Discount("B", 2, 15));
+    private List<Item> cart;
+    private Map<String, Item> warehouse;
+    private List<Discount> discounts;
 
-    public void scanItem(Item item) {
-        cart.add(item);
+    public CheckoutService(Map<String, Item> warehouse, List<Discount> discounts) {
+        cart = new ArrayList<>();
+        this.warehouse = warehouse;
+        this.discounts = discounts;
+    }
+
+    public void scanItem(String itemName) {
+        cart.add(warehouse.get(itemName));
     }
 
     public long checkout() {
